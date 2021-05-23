@@ -1,0 +1,35 @@
+
+    <div class="comment">
+      
+      <a class="avatar">
+        <img src="<%=newComment.author.photo %>" class="avatar">
+      </a>
+            
+      <div class="content">
+          <a class="author">
+              <%=newComment.author.name%>
+          </a>
+          <div class="metadata">
+              <span class="date"><%=newComment.created.toDateString()%></span>
+          </div>
+          <div class="text">
+              <%=newComment.text %>
+          </div>
+          <!-- Actions -->
+          <%if(currentUser){%> 
+            <%if(newComment.author._id.equals(currentUser._id)){ %>
+                <div class="actions">
+                    <button class="reply edit-cmnt">Edit</button>
+                    <button class="reply delete_cmnt ml-0">Delete</button>
+                    <!-- Edit Comment form -->
+                    <form  method="POST" style="display:none" class="form-inline my-3 edit-form">
+                        <div class="ui input icon left m-0" style="width:55%">
+                            <input type="text" name="Comment[text]" value="<%=newComment.text%>">
+                        </div>
+                        <button class="ui button small  teal ml-2">Post</button>
+                    </form>
+                </div>
+            <%} %>
+          <%}%> 
+      </div>
+    </div>

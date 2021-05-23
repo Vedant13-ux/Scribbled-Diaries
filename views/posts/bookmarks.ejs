@@ -1,0 +1,106 @@
+<%-include('../partials/header') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="/posts/bookmarks.css">
+    <link rel="stylesheet" href="/nav/nav.css"> 
+    <%-include('../partials/sidebar')%>
+    <%-include('../partials/nav') %> 
+
+    <%if(bookmarks.length===0){ %> 
+        <h1 id="no_post">
+            You Have No Bookmarks
+            <br>
+          <a href="/home#cont">Add Bookmarks<i class="ml-2 far fa-plus-square"></i> </a>
+        </h1>
+        <div id="bookmark_svg">
+          <%-include('../partials/bookmark')%> 
+        </div>
+       
+    <%} %> 
+
+    <div class="card-columns" id="cont">
+        <%for(var i=0;i<bookmarks.length; i++){ %>
+        <div class="card">
+          <div class="template">
+            <div class="category"><%=bookmarks[i].category%></div>
+            <div class="top">
+              <img src="<%=bookmarks[i].author.photo%>" alt="" class="avatar">
+              <a class="name" href="/user/<%=bookmarks[i].author.id%>"><%=bookmarks[i].author.name%></a>
+            </div>
+            <img src="<%=bookmarks[i].image%>" class="top_image">
+            <div class="container">
+              <h4 class="title"><b><%=bookmarks[i].title%></b></h4>
+              <p class="content"><%-bookmarks[i].content.substring(0,200)%>....<a class="post_link" href="/post/<%=bookmarks[i].id%>"> Read More</a>
+              </p>
+            </div>
+            <div class="bottom">
+              <!-- Liked -->
+              <%if(currentUser){ %>
+                <%if(bookmarks[i].liked_by.findIndex((user)=>{return currentUser._id.equals(user)})==-1){ %>
+                  <button>
+                    <i class="far fa-heart likes" data-id="<%=bookmarks[i]._id%>">
+                      <small class=".like_count"><%=bookmarks[i].liked_by.length%></small>
+                    </i>
+                  </button>
+                <%}else{ %>
+                  <button>
+                    <i class="fas far fa-heart likes" data-id="<%=bookmarks[i]._id%>">
+                      <small class=".like_count"><%=bookmarks[i].liked_by.length%></small>
+                    </i>
+                  </button>
+                <%} %> 
+              <%}%>
+              <%if(!currentUser){%>
+                <button disabled>
+                  <i class="far fa-heart">
+                    <small class=".like_count"><%=bookmarks[i].liked_by.length%></small>
+                  </i>
+                </button>
+              <%} %>
+              
+              <%if(currentUser){ %> 
+                <button><i class="far fa-comment"></i></button>
+              <%}else{ %>
+                <button disabled><i class="far fa-comment"></i></button>
+              <%} %>  
+              
+      
+              <%if(currentUser){ %>
+                <%if(currentUser.bookmarks.findIndex((bookmark)=>{return bookmark.equals(bookmarks[i]._id)})==-1){ %>
+                  <button><i class="far fa-bookmark bookmark" data-id="<%=bookmarks[i]._id%>"></i></button>
+                <%}else{ %>
+                  <button><i class="fas far fa-bookmark bookmark" data-id="<%=bookmarks[i]._id%>"></i></button>
+                <%} %> 
+              <%}%>
+              <%if(!currentUser){%>
+                <button disabled><i class="far fa-bookmark" data-id="<%=bookmarks[i]._id%>" ></i></button>
+              <%} %> 
+              
+              <button class="share_button"><i class="far fa-paper-plane"></i></button>
+      
+      
+              <div class="share">
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="http://localhost:3000/<%=bookmarks[i].id%>"
+                  data-a2a-title="Checkout this Amazing <%=bookmarks[i].category%> by <%=bookmarks[i].author.name%> on Scribbled Diaries: ">
+                  <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                  <a class="a2a_button_facebook"></a>
+                  <a class="a2a_button_whatsapp"></a>
+                  <a class="a2a_button_twitter"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        
+      
+        <%} %>
+      </div>
+    
+
+
+
+
+    <%-include('../partials/footer') %>
+    <script src="/posts/actions.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+</body>
+</html>

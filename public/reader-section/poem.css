@@ -1,0 +1,177 @@
+@import 'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap';
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background: #f1eff8;
+}
+
+nav {
+	z-index: 1;
+	position: absolute !important;
+	width: 100%;
+
+}
+
+.nav-link {
+	color: #ffffffe5 !important;
+}
+
+.nav-link:hover {
+	color: white;
+}
+
+#nav_form {
+	display: none !important;
+}
+
+/* Header */
+#header {
+	width: 100%;
+	height: 450px;
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	flex-direction: column;
+}
+
+#header img {
+	width: 100vw;
+	height: 450px;
+	object-fit: cover;
+	position: absolute;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#header h1 {
+	position: absolute;
+	color: white;
+	padding: 200px;
+	font-size: 80px;
+	font-family: 'Dancing Script', cursive;
+
+	transform: translateY(13px);
+	opacity: 0;
+	animation: appear 1s forwards;
+}
+
+@keyframes appear {
+	form {
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+#header #choice {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	z-index: 1;
+	margin-top: 350px;
+}
+
+#header #choice a {
+	color: white;
+}
+
+#header #choice a:hover {
+	color: black !important;
+	text-decoration: none;
+}
+
+/* *********************** */
+#blur {
+	padding: 40px 80px;
+}
+
+#section1 {
+	margin-bottom: 60px;
+}
+
+#section2 {
+	margin-bottom: 60px;
+}
+
+#section3 {
+	margin-bottom: 60px;
+}
+
+/* ************** */
+/* Our PIcks Section */
+
+#section1 h1 {
+	margin-bottom: 20px;
+}
+
+.col-lg-6 {
+	padding-top: 20px;
+}
+
+.pick h3 {
+	text-align: center;
+}
+
+/* Poem's Section */
+
+#section {
+	max-width: 800px;
+	width: 90%;
+	text-align: center;
+
+}
+
+#inner-section {
+	overflow: auto;
+	max-height: 800px;
+	height: 90%;
+}
+
+#section img {
+	max-width: 98%;
+	width: 90%;
+	max-height: 700px;
+	height: 80%;
+	border-radius: 30px;
+	margin-bottom: 30px;
+}
+
+select {
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+#poem {
+	text-align: center;
+}
+
+#poem_cont {
+	/* background: rgba(255, 255, 230, 1); */
+	overflow: visible;
+	text-overflow: clip;
+	white-space: normal;
+}
+
+p .sample {
+	font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 87.5%;
+}
+
+/* #poem_title {
+	background: url("https://www.transparenttextures.com/patterns/wood-pattern.png");
+	color: white;
+} */
+@media screen and (max-width: 800px) {
+	#poem_title {
+		font-size: 18px;
+	}
+}
+
+.ui .form {
+	cursor: pointer !important;
+}

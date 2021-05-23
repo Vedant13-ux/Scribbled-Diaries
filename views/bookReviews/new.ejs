@@ -1,0 +1,151 @@
+<%-include('../partials/header') %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/header.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/container.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/loader.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/rating.min.css">
+
+    <link rel="stylesheet" href="/nav/nav.css">
+    <link rel="stylesheet" href="/bookReviews/new.css">
+    <%-include('../partials/sidebar')%>
+    <%-include('../partials/nav') %>
+    <div id="blur">
+        <div class="ui  fluid-container main text segment mb-3" id='createform'>
+            <div class="ui huge header center aligned text-dark">
+                Book Review
+            </div>
+
+
+            <form action="/bookreviews/existing/create" method="POST" class="ui form mb-3" id="reviewForm">
+                <div class="bookForm">
+                    <div class="field title">
+                        <label>Title</label>
+                        <div class="ui left icon input">
+                            <input type="text" required id="title" placeholder="Enter complete title">
+                            <i class="book icon"></i>
+                        </div>
+                    </div>
+                    <div class="field author">
+                        <label>Author</label>
+                        <div class="ui left icon input">
+                            <input type="text" required id="author" placeholder="Enter First/Last Name or Full Name">
+                            <i class="pen square icon p-0"></i>
+                        </div>
+                    </div>
+                    <button class="ui tiny button search" id="bookSearch" data-toggle="modal" href="#bookDisplay">Search Book</button>
+                </div>
+
+                <div class="reviewContent" style="display: none;">
+                    <div class="field rating">
+                        <label>Rating</label>
+                        <div class="ui left icon input">
+                            <input type="text" name="review[ratings]" required placeholder="Enter your rating out of 5">
+                            <i class="star icon"></i>
+                        </div>
+                    </div>
+
+                    
+                    
+                    <div id="mic" onclick=runSpeechRecognition()>
+                        <small id="action"></small>
+                        <i class="fas fa-microphone-alt"></i>
+                        <span id="bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </span>
+                    </div>
+                    
+                    <div class="field review" id="text-area">
+                        <label>Review</label>
+                        <textarea rows="10" name="review[content]" id="tarea" required></textarea>
+
+                        
+                    </div>
+
+                    <input type="hidden" class="bookId" name="book[bookId]">
+                    <input type="hidden" class="bookTitle" name="book[bookTitle]">
+                    <input type="hidden" class="authors" name="book[authors]">
+                    <input type="hidden" class="genre" name="book[genre]">
+                    <input type="hidden" class="image" name="book[image]">
+                    <input type="hidden" class="description" name="book[description]">
+                    <input type="hidden" class="language" name="book[language]">
+                    <input type="hidden" class="pageCount" name="book[pageCount]">
+                    <input type="hidden" class="averageRating" name="book[rating][averageRating]">
+                    <input type="hidden" class="count" name="book[rating][count]">
+                    <input type="hidden" class="previewLink" name="book[previewLink]">
+
+
+                    <button style="margin-top:10px" type="submit" class="ui blue submit button large" id="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="bookDisplay" class="modal fade " tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Is this the book you were looking for?</h3>
+                <div class="bookInfo">
+
+                </div>
+                <button class="btn btn-primary  center-block yes" data-dismiss="modal" aria-hidden="true"> Yes </button>
+                <button class="btn btn-danger center-block no" data-dismiss="modal" aria-hidden="true"> Search Again </button>
+                <button class="btn btn-success proceed" data-dismiss="modal">Proceed Anyway</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="ui active inverted dimmer" id="loader">
+        <div class="ui large text loader">Loading</div>
+    </div>
+
+    <script>
+        document.onreadystatechange = function() {
+	        if (document.readyState !== 'complete') {
+		        document.querySelector('body').style.display = 'hidden';
+		        document.querySelector('#loader').style.visibility = 'visible';
+	        } else {
+		        document.querySelector('#loader').style.display = 'none';
+		        document.querySelector('body').style.visibility = 'visible';
+        	}
+        };
+    </script>
+    <script src="/posts/ckeditor/ckeditor.js"></script>
+    <script src="/bookReviews/new.js"></script>
+
+
+    <script>
+        CKEDITOR.replace('review[content]',{
+            removeButtons:'Link,Language'
+            
+        });
+        CKEDITOR.config.removePlugins='Horizontal Rule'
+
+    </script>
+
+
+
+
+
+
+    <%-include('../partials/footer') %>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/rating.min.js"></script>
+
+</body>
+</html>

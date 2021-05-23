@@ -1,0 +1,162 @@
+<%-include('../partials/header') %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/comment.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css">
+<link rel="stylesheet" href="/posts/viewPost.css">
+<link rel="stylesheet" href="/nav/nav.css">
+<link rel="stylesheet" href="">
+
+<%-include('../partials/sidebar')%>
+<%-include('../partials/nav') %>
+
+<div id="row">
+    <div class="template paper">
+      <div class="reading-time">
+        <span class="reading-time__label"></span>
+        <span class="reading-time__duration"></span>
+        <span class="reading-time__word-count"></span>
+      </div>
+        <div class="category"><%=post.category%></div>
+        <div class="top">
+            <img src="<%=post.author.photo%>" alt="" class="avatar">
+            <a class="name" href="/user/<%=post.author.id%>"><%=post.author.name%></a>
+        </div>
+        <div class="container">
+            <h1><b><%=post.title%></b></h1>
+            <p class="content detail-wrapper"><%-post.content%></p>
+        </div>
+
+        <div class="bottom">
+          <!-- Liked -->
+          <%if(currentUser){ %>
+            <%if(post.liked_by.findIndex((user)=>{return currentUser._id.equals(user)})==-1){ %>
+              <button>
+                <i class="far fa-heart likes" data-id="<%=post._id%>">
+                  <small class=".like_count"><%=post.liked_by.length%></small>
+                </i>
+              </button>
+            <%}else{ %>
+              <button>
+                <i class="fas far fa-heart likes" data-id="<%=post._id%>">
+                  <small class=".like_count"><%=post.liked_by.length%></small>
+                </i>
+              </button>
+            <%} %> 
+          <%}%>
+          <%if(!currentUser){%>
+            <button disabled>
+              <i class="far fa-heart">
+                <small class=".like_count"><%=post.liked_by.length%></small>
+              </i>
+            </button>
+          <%} %>
+          
+          <%if(currentUser){ %> 
+            <button><i class="far fa-comment" onclick="window.location.href='#cmntsec'"></i></button>
+          <%}else{ %>
+            <button disabled><i class="far fa-comment"></i></button>
+          <%} %>  
+  
+          <%if(currentUser){ %>
+            <%if(currentUser.bookmarks.findIndex((bookmark)=>{return bookmark.equals(post._id)})==-1){ %>
+              <button><i class="far fa-bookmark bookmark" data-id="<%=post._id%>"></i></button>
+            <%}else{ %>
+              <button><i class="fas far fa-bookmark bookmark" data-id="<%=post._id%>"></i></button>
+            <%} %> 
+          <%}%>
+          <%if(!currentUser){%>
+            <button disabled><i class="far fa-bookmark" data-id="<%=post._id%>" ></i></button>
+          <%} %> 
+
+       
+          
+          <button class="share_button"><i class="far fa-paper-plane"></i></button>
+  
+  
+          <div class="share">
+            <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="http://localhost:3000/<%=post.id%>"
+              data-a2a-title="Checkout this Amazing <%=post.category%> by <%=post.author.name%> on Scribbled Diaries: ">
+              <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+              <a class="a2a_button_facebook"></a>
+              <a class="a2a_button_whatsapp"></a>
+              <a class="a2a_button_twitter"></a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="ui bottom attached segment" id="cmntsec">
+
+          <h3 style="border-bottom: 1px solid rgb(199, 193, 193); padding-bottom: 10px;">Comments (<span class='cmnt_counter'><%=post.comments.length%></span>)</h3>
+
+          <%if(currentUser){ %>
+            <form id="newComment">
+              <img src="<%=currentUser.photo%>" class="avatar-comment" alt="">
+              <div class="ui input icon left m-0" style="width:55%">
+                  <input type="text" name="comment[text]" required placeholder="Type Your Comment..." data-id="<%=post.id%>" id="cmnt_input">
+              </div>
+              <button class="ui button teal ml-2" id="post_btn">Post</button>
+            </form>
+          <%} %>  
+
+          <div class="ui comments">
+            <%post.comments.forEach(function(comment){%>
+              <div class="comment">
+                
+                <a class="ui avatar">
+                  <img src="<%=comment.author.photo %>" >
+                </a>
+                      
+                <div class="content">
+                    <a class="author" href='/user/<%=comment.author.id%>'>
+                        <%=comment.author.name%>
+                    </a>
+                    <div class="metadata">
+                        <span class="date"><%=comment.created.toDateString()%></span>
+                    </div>
+                    <div class="text">
+                        <%=comment.text %>
+                    </div>
+                    <!-- Actions -->
+                    <%if(currentUser){%> 
+                      <%if(comment.author._id.equals(currentUser._id)){ %>
+                          <div class="actions">
+                                <button class="reply edit-cmnt" data-id=<%=comment._id%>>Edit</button>
+                                <button class="reply delete_cmnt ml-0" data-id=<%=comment._id%>>Delete</button>
+                              <!-- Edit Comment form -->
+                              <form  method="POST" style="display:none" class="form-inline my-3 edit-form" >
+                                  <div class="ui input icon left m-0" style="width:55%">
+                                      <input type="text" name="comment[text]" value="<%=comment.text%>">
+                                  </div>
+                                  <button class="ui button small  teal ml-2">Post</button>
+                              </form>
+                          </div>
+                      <%} %>
+                    <%}%> 
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        </div>
+
+
+        
+    </div>
+</div>
+
+
+
+
+
+<%-include('../partials/footer') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reading-time/2.0.0/readingTime.js"></script>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<script src="/posts/viewPost.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/posts/actions.js"></script>
+</body>
+
+</html>

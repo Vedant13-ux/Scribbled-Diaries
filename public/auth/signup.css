@@ -1,0 +1,34 @@
+@import 'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap';
+
+* {
+	box-sizing: border-box;
+}
+body {
+	background: #f1eff8;
+}
+#cont {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-items: center;
+	padding-top: 60px;
+}
+#heading {
+	font-family: 'Dancing Script', cursive;
+	font-size: 50px;
+	display: table-cell;
+	vertical-align: middle;
+	flex: 30%;
+}
+#register {
+	text-align: start;
+}
+.ui.form .field.field input:-webkit-autofill {
+	border-color: none !important;
+}
+.ui.form .field.field input:focus {
+	background-color: none;
+}
+.social {
+	text-align: center;
+}

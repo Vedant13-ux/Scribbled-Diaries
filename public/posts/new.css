@@ -1,0 +1,137 @@
+html{
+	scroll-behavior: smooth;
+}
+body {
+	background: url(https://99designs-blog.imgix.net/blog/wp-content/uploads/2020/04/Fitriandhita_color2.jpeg?auto=format&q=60&fit=max&w=930) no-repeat center center /
+		cover;
+	background-attachment: fixed;
+}
+nav {
+	background: white;
+}
+.nav-link {
+	color: rgba(0, 0, 0, 0.726) !important;
+}
+/* ***************** */
+
+#createform {
+	resize: horizontal;
+	overflow: auto;
+	z-index: 0;
+}
+.segment {
+	margin: 40px !important;
+}
+.segment label {
+	font-size: 1.2rem !important;
+	text-align: start;
+}
+
+#text-area {
+	transition: margin 0.5s;
+}
+/* Microphone */
+#mic {
+	/* display: inline-block; */
+	height: 50px;
+	text-align: center;
+	cursor: pointer;
+}
+
+#mic i {
+	font-size: 40px;
+	display: inline;
+}
+
+#bars {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/* #blur {
+	min-height: 100%;
+	min-width: 100%;
+	overflow: visible;
+} */
+
+.bar {
+	background: #52467b;
+	bottom: 1px;
+	height: 3px;
+	width: 10px;
+	margin: 0px 4px;
+	border-radius: 5px;
+	animation: sound 0ms -600ms linear infinite alternate;
+	display: none;
+	transition: 0.5s all;
+}
+
+@keyframes sound {
+	0% {
+		opacity: .35;
+		height: 3px;
+	}
+	100% {
+		opacity: 1;
+		height: 70px;
+	}
+}
+
+.bar:nth-child(1) {
+	left: 1px;
+	animation-duration: 474ms;
+}
+.bar:nth-child(2) {
+	left: 15px;
+	animation-duration: 433ms;
+}
+.bar:nth-child(3) {
+	left: 29px;
+	animation-duration: 407ms;
+}
+.bar:nth-child(4) {
+	left: 43px;
+	animation-duration: 458ms;
+}
+.bar:nth-child(5) {
+	left: 57px;
+	animation-duration: 400ms;
+}
+.bar:nth-child(6) {
+	left: 71px;
+	animation-duration: 427ms;
+}
+.bar:nth-child(7) {
+	left: 85px;
+	animation-duration: 441ms;
+}
+.bar:nth-child(8) {
+	left: 99px;
+	animation-duration: 419ms;
+}
+.bar:nth-child(9) {
+	left: 113px;
+	animation-duration: 487ms;
+}
+.bar:nth-child(10) {
+	left: 127px;
+	animation-duration: 442ms;
+}
+/* ********* */
+#blur {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	flex-direction: column;
+}
+#blur .fluid-container {
+	max-width: 1200px !important;
+	width: 80%;
+}
+#action {
+	text-align: center;
+	display: block;
+}
+#catgry {
+	display: none;
+}

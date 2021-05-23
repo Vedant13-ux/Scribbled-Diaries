@@ -1,0 +1,103 @@
+<%-include('../partials/header') %>
+    <link rel="stylesheet" href="/nav/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css">
+    <link rel="stylesheet" href="/index/donate.css">
+
+    <%-include('../partials/sidebar')%>
+    <%-include('../partials/nav') %> 
+    
+
+
+        <div id="cont_form" class="container">
+            <div class="choice">
+                <span class="credit">
+                    Credit/Debit Card
+                </span>
+                <span class="paytm">
+                  Paytm
+                </span>
+            </div>
+            <div class="mainform" id="cd">
+                <form action="/donate" method="POST" class="ui form donateForm">
+
+                    <div class="field column3">
+                        <label>Email</label>
+                        <div class="ui  icon input">
+                            <%if(currentUser){ %> 
+                                <input required type="email" value="<%=currentUser.email %> ">
+                            <%}else{ %>
+                                <input required type="email">
+                            <%} %> 
+                            <i class="ui icon envelope"></i>
+                        </div>
+                    </div>
+                    <div class="field column1">
+                        <label>Name on Card</label>
+                        <div class="ui  icon input">
+                            <input required type="text">
+                            <i class="ui icon user"></i>
+                        </div>
+                    </div>
+
+                    <div class="field column2">
+                        <label>Expiry Date</label>
+                        <div class="ui input">
+                            <input required type="month">
+                        </div>
+                    </div>
+                    <div class="field column1">
+                        <label>Credit/Debit Card</label>
+                        <div class="ui icon input">
+                            <input required type="text" id="cardNum">
+                            <i class="credit card outline icon"></i>
+                        </div>
+                    </div>
+                    <div class="field column2">
+                        <label>CVV/CVC</label>
+                        <div class="ui input icon">
+                            <input required type="password">
+                            <i class="ui icon lock"></i>
+                        </div>
+                    </div>
+                    <div class="field column1">
+                        <label>Amount(INR)</label>
+                        <div class="ui input icon">
+                            <input required type="number" pattern="0+\.[0-9]*[1-9][0-9]*$">
+                            <i class="ui icon money bill alternate outline"></i>
+                        </div>
+                    </div>
+                    <button type="submit" class="donateBtn ui label teal">
+                        Make Payment
+                    </button>
+                    <span id='valid'></span>      
+                </form>
+
+                
+            </div>
+            <div id="paytm" class="mainform">
+                <form action="">
+                    <div class="field column1">
+                        <label>Amount(INR)</label>
+                        <div class="ui input icon">
+                            <input required type="number" pattern="0+\.[0-9]*[1-9][0-9]*$">
+                            <i class="ui icon money bill alternate outline"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+        </div>
+
+
+
+
+
+    <%-include('../partials/footer') %>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="/index/donate.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+</body>
+</html>

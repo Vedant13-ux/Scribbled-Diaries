@@ -1,0 +1,115 @@
+<%-include('../partials/header') %>
+    <link rel="stylesheet" href="/nav/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="/bookReviews/bookReviews.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/transition.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/rating.min.css">
+
+    <%-include('../partials/sidebar')%>
+    <%-include('../partials/nav') %> 
+    <div id="header">
+      <img id=""
+        src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=966&q=80"
+        alt="">
+      <h1>
+        Book Reviews
+      </h1>
+      <%if(currentUser){ %>
+        <input type="hidden" value="<%=currentUser%>" id="currentUser">
+      <%}else{%>
+        <input type="hidden" value="[]" id="currentUser">
+      <%} %> 
+      
+      <div class="ui right labeled input" id="form">
+        <input type="text" placeholder="Find Book Reviews By" id="page_form" name="search">
+        <div class="ui dropdown label">
+          <div class="text">Book Title</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <div class="item">Book Title</div>
+            <div class="item">Author</div>
+            <div class="item">Genre</div>
+            <div class="item">Avergae Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fluid-container">
+      <div class="row" id="cont">
+        <%for(var i=0;i<bookReview.length; i++){ %>
+          <div class="col-lg-4 col-md-6 d-flex">
+            <div class="template">
+              <div class="category">Book Review</div>
+              <div class="top">
+                <img src="<%=bookReview[i].author.photo%>" alt="" class="avatar">
+                <a class="name" href="/user/<%=bookReview[i].author.id%>"><%=bookReview[i].author.name%></a>
+              </div>
+              <hr class="topSerprn">
+              <div class="bookInfo">
+                <img src="<%=bookReview[i].book.image%>" class="top_image">
+                <div class="details">
+                  <div class="title"><b><%=bookReview[i].book.bookTitle%></b></div>
+                  <div class="title"><em>-by <%=bookReview[i].book.authors%></em></div>
+                  <div class="title">Genre: <%=bookReview[i].book.genre%></div>
+                  <div class="title">
+                    Reviwer's Rating : <div class="ui star rating" data-rating="<%=parseInt(bookReview[i].ratings)%>" data-max-rating="5"></div>(<%=bookReview[i].ratings%>)
+                  </div>
+                  <div class="title">
+                    Average Rating : 
+                    <div class="ui star rating" data-rating="<%=parseInt(Math.round(bookReview[i].book.rating.averageRating))%>" data-max-rating="5"></div> 
+                    (<%=bookReview[i].book.rating.averageRating%> - <%=bookReview[i].book.rating.count%> ratings )
+                  </div>
+
+                </div>
+              </div>
+              <div class="review">
+                <p class="content"><%-bookReview[i].content%>
+                </p>
+              </div>
+              <div class="bottom">
+                <!-- Liked -->
+                <%if(currentUser){ %>
+                  <%if(bookReview[i].liked_by.findIndex((user)=>{return currentUser._id.equals(user)})==-1){ %>
+                    <button>
+                      <i class="far fa-heart likes" data-id="<%=bookReview[i]._id%>">
+                        <small class=".like_count"><%=bookReview[i].liked_by.length%></small>
+                      </i>
+                    </button>
+                  <%}else{ %>
+                    <button>
+                      <i class="fas far fa-heart likes" data-id="<%=bookReview[i]._id%>">
+                        <small class=".like_count"><%=bookReview[i].liked_by.length%></small>
+                      </i>
+                    </button>
+                  <%} %> 
+                <%}%>
+                <%if(!currentUser){%>
+                  <button disabled>
+                    <i class="far fa-heart">
+                      <small class=".like_count"><%=bookReview[i].liked_by.length%></small>
+                    </i>
+                  </button>
+                <%} %>
+
+              </div>
+            </div>
+          </div>
+      
+        <%} %>
+      </div>
+    </div>
+
+
+
+
+    <!-- <i class="material-icons">send</i> -->
+
+    <%-include('../partials/footer') %>
+    <script src="/bookReviews/bookReviews.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/transition.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/rating.min.js"></script>
+</body>
+</html>

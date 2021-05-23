@@ -1,0 +1,95 @@
+body{
+  overflow-y: auto;
+}
+#cont_form {
+	max-width: 700px;
+  margin-top: 5%;
+  margin-bottom: 20px;
+}
+#cont_form .choice {
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 25px;
+	border: 1px solid rgba(0, 0, 0, 0.397);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#cont_form .choice .credit {
+	cursor: pointer;
+	background-color: azure;
+	margin: 0;
+	flex: 50%;
+	max-width: 50%;
+	padding: 10px;
+	border-top-left-radius: 10px;
+}
+#cont_form .choice .paytm {
+	cursor: pointer;
+
+	background-color: rgb(0, 217, 255);
+	max-width: 50%;
+	flex: 50%;
+	margin: 0;
+	padding: 10px;
+	border-top-right-radius: 10px;
+}
+.mainform {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.397);
+}
+.donateForm {
+	padding: 10px;
+	display: flex;
+	flex-wrap: wrap;
+	left: 50%;
+	transform: translateX(-39%);
+}
+
+.donateForm .column1 {
+	margin: 10px;
+	flex: 50%;
+  max-width: 50%;
+  padding-right:20px ;
+}
+
+.donateForm .column2 {
+	padding: 0 20px;
+	margin: 0 10px;
+	flex: 30%;
+	max-width: 30%;
+}
+.donateForm .column3 {
+	flex: 77%;
+	max-width: 77%;
+}
+input[type="month"] {
+	padding: 7.5px !important;
+}
+.amount{
+  flex: 50%;
+  max-width: 50%;
+  padding-right: 10px;
+}
+.donateBtn {
+  padding-left:40px;
+	font-size: 17px !important;
+	flex: 25%;
+	max-width: 25%;
+	background-color: aquamarine;
+	justify-content: center;
+}
+.donateBtn .ui .label{
+  padding: 2px !important;
+}
+#valid {
+  flex: 60%;
+	max-width: 60%;
+  
+	color: rgb(202, 47, 47);
+}
+/* Paytm */
+#paytm{
+  display: none;
+}

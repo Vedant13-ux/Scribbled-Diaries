@@ -1,0 +1,36 @@
+<%comments.forEach(function(comment){%>
+    <div class="comment">
+      
+      <a class="avatar">
+        <img src="<%=comment.author.photo %>" class="avatar">
+      </a>
+            
+      <div class="content">
+          <a class="author" href='/user/<%=comment.author.id%>'>
+              <%=comment.author.name%>
+          </a>
+          <div class="metadata">
+              <span class="date"><%=comment.created.toDateString()%></span>
+          </div>
+          <div class="text">
+              <%=comment.text %>
+          </div>
+          <!-- Actions -->
+          <%if(currentUser){%> 
+            <%if(comment.author._id.equals(currentUser._id)){ %>
+                <div class="actions">
+                    <button class="reply edit-cmnt">Edit</button>
+                    <button class="reply delete_cmnt ml-0" data-id=<%=comment._id%>>Delete</button>
+                    <!-- Edit Comment form -->
+                    <form  method="POST" style="display:none" class="form-inline my-3 edit-form">
+                        <div class="ui input icon left m-0" style="width:55%">
+                            <input type="text" name="comment[text]" value="<%=comment.text%>">
+                        </div>
+                        <button class="ui button small  teal ml-2">Post</button>
+                    </form>
+                </div>
+            <%} %>
+          <%}%> 
+      </div>
+    </div>
+  <% }) %>

@@ -1,0 +1,93 @@
+<%-include('../partials/header') %>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/loader.min.css">
+    <link rel="stylesheet" href="/auth/signup.css">
+    
+    <%-include('../partials/sidebar')%>
+
+    <div class="ui container" id="cont">
+        <h1 id="heading">Crafted Diaries</h1>
+        <div class="ui segment form"  id="register">
+            <div class="ui header" style="text-align: center;">Signup with </div>
+            <div class="social">
+                <button onclick='window.location.href = "http://localhost:3000/auth/facebook"' class="ui facebook button">
+                    <i class="facebook icon"></i>Facebook
+                </button>
+                <button class='ui google plus button' onclick='window.location.href = "http://localhost:3000/auth/google"'>
+                    <i class="google plus icon"></i>Google Plus
+                </button>
+                <button class='ui twitter button' onclick='window.location.href = "http://localhost:3000/auth/twitter"'>
+                    <i class="twitter icon"></i>Twitter
+                </button>
+            </div>
+            <div style="text-align: center;line-height:30px;">or</div> <hr>
+            <form  action="/signup" method="POST">
+                <div class="field">
+                    <label>Username</label>
+                    <div class="ui left icon input ">
+                        <input type="text" name="username" required>
+                        <i class="user icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Password</label>
+                    <div class="ui left icon input">
+                        <input type="password" name="password" required>
+                        <i class="lock icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Email</label>
+                    <div class="ui left icon input">
+                        <input type="email" name="email" required>
+                        <i class="envelope icon"></i>
+                    </div>
+                </div>
+
+                <div class="mb-3 field">
+                    <!-- <span class="mr-2 mb-1">Gender:</span>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="male" required>
+                        <label class="form-check-label" for="inlineRadio1">
+                            <div class="ui avatar image">
+                                <img src="/media/male-avatar-profile-icon-round-african-american-vector-18307210.jpg" alt="">
+                            </div>
+                        </label>
+                    </div> -->
+                    <!-- <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="female" required>
+                        <label class="form-check-label" for="inlineRadio2">
+                            <div class="ui avatar image">
+                                <img src="/media/female-avatar-profile-icon-round-african-american-vector-18307279.jpg" alt="">
+                            </div>
+                        </label>
+                    </div> -->
+                </div>
+
+                <div class="field" style="display:inline">
+                    <div class="ui checkbox">
+                        <input type="checkbox" tabindex="0" required>
+                        <label>I agree to the Terms and Conditions</label>
+                    </div>
+                </div>
+                <div class="float-right mb-2">
+                    <a href="/login">Already have an account? Login</a>
+                </div>
+                <button class="ui button blue mt-1" type="submit" style="width:100%">Signup</button>
+            </form>
+        </div>
+    </div>
+     
+        
+
+
+    <%-include('../partials/footer')%>
+
+</body>
+</html>

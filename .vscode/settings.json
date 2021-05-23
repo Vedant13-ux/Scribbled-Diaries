@@ -1,0 +1,15 @@
+{
+    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "Postgres",
+            "database": "test",
+            "username": "postgres",
+            "password": "vedant_123"
+        }
+    ]
+}

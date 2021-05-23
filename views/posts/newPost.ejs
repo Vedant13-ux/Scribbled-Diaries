@@ -1,0 +1,117 @@
+<%-include('../partials/header') %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/form.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/segment.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/header.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/container.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+    <link rel="stylesheet" href="/posts/new.css">
+    <link rel="stylesheet" href="/nav/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/loader.min.css">
+
+    
+    <%-include('../partials/sidebar')%>
+    <%-include('../partials/nav') %>
+    
+     
+    <div id="blur">
+        <div class="ui fluid-container main text segment mb-3" id='createform'>
+            <div class="ui huge header center aligned text-dark">
+                Scratch your thoughts on paper
+            </div>
+            
+            <form action="/newPost" method="POST" class="ui form mb-3">
+                
+                
+                <div class="field" id="catgry">
+                    <label>Category</label>
+                    <div class="ui left icon input">
+                        <input type="text" name="post[category]" id="category" required>
+                        <i class="pen square icon p-0"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Title</label>
+                    <div class="ui left icon input">
+                        <input type="text" name="post[title]" id='title' required>
+                        <i class="pen square icon p-0"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Overtone</label>
+                    <div class="ui left icon input">
+                        <input type="text" name="post[overtone]" placeholder="Eg. Sad, Happy, Motivating" required>
+                        <i class="pen square icon p-0"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Relevant Image (URL)</label>
+                    <div class="ui left icon input">
+                        <input type="text" name="post[image]" required id="image">
+                        <i class="file image icon"></i>
+                    </div>
+                </div>
+                
+                <div id="mic" onclick=runSpeechRecognition()>
+                    <small id="action"></small>
+                    <i class="fas fa-microphone-alt"></i>
+                    <span id="bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </span>
+                </div>
+                
+                <div class="field" id="text-area">
+                    <label>Content</label>
+                    <textarea rows="10" name="post[content]" id="tarea" required></textarea>
+
+                    <button style="margin-top:10px" type="submit" class="ui blue submit button large" id="submit">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="ui active inverted dimmer" id="loader">
+        <div class="ui large text loader">Loading</div>
+    </div>
+
+    <%-include('../partials/footer') %>
+    <script>
+        document.onreadystatechange = function() {
+	        if (document.readyState !== 'complete') {
+		        document.querySelector('body').style.display = 'hidden';
+		        document.querySelector('#loader').style.visibility = 'visible';
+	        } else {
+		        document.querySelector('#loader').style.display = 'none';
+		        document.querySelector('body').style.visibility = 'visible';
+        	}
+        };
+    </script>
+    <script async src="/posts/new.js"></script>
+    <script src="/posts/ckeditor/ckeditor.js"></script>
+
+
+    <script>
+        CKEDITOR.replace('post[content]',{
+            removeButtons:'Link,Language'
+            
+        });
+        CKEDITOR.config.removePlugins='Horizontal Rule'
+
+    </script>
+
+    </body>
+
+    </html>

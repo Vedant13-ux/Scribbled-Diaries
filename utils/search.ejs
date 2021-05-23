@@ -1,0 +1,75 @@
+<%for(var i=0;i<posts.length; i++){ %>
+    <div class="card">
+      <div class="template">
+        <div class="category"><%=posts[i].category%></div>
+        <div class="top">
+          <img src="<%=posts[i].author.photo%>" alt="" class="avatar">
+          <a class="name" href=<%=posts[i].author.link%>><%=posts[i].author.name%></a>
+        </div>
+        <img src="<%=posts[i].image%>" class="top_image">
+        <div class="container">
+          <h4 class="title"><b><%=posts[i].title%></b></h4>
+          <p class="content"><%-posts[i].content.substring(0,200)%>....<a class="post_link" href="/post/<%=posts[i].id%>"> Read More</a>
+          </p>
+        </div>
+        <div class="bottom">
+  
+          <!-- Liked -->
+          <%if(currentUser){ %>
+            <%if(posts[i].liked_by.findIndex((user)=>{return currentUser._id.equals(user)})==-1){ %>
+              <button>
+                <i class="far fa-heart likes" data-id="<%=posts[i]._id%>">
+                  <small class=".like_count"><%=posts[i].liked_by.length%></small>
+                </i>
+              </button>
+            <%}else{ %>
+              <button>
+                <i class="fas far fa-heart likes" data-id="<%=posts[i]._id%>">
+                  <small class=".like_count"><%=posts[i].liked_by.length%></small>
+                </i>
+              </button>
+            <%} %> 
+          <%}%>
+          <%if(!currentUser){%>
+            <button disabled>
+              <i class="far fa-heart">
+                <small class=".like_count"><%=posts[i].liked_by.length%></small>
+              </i>
+            </button>
+          <%} %>
+          
+          <%if(currentUser){ %> 
+            <button><i class="far fa-comment"></i></button>
+          <%}else{ %>
+            <button disabled><i class="far fa-comment"></i></button>
+          <%} %>  
+          
+  
+          <%if(currentUser){ %>
+            <%if(currentUser.bookmarks.findIndex((bookmark)=>{return bookmark.equals(posts[i]._id)})==-1){ %>
+              <button><i class="far fa-bookmark bookmark" data-id="<%=posts[i]._id%>"></i></button>
+            <%}else{ %>
+              <button><i class="fas far fa-bookmark bookmark" data-id="<%=posts[i]._id%>"></i></button>
+            <%} %> 
+          <%}%>
+          <%if(!currentUser){%>
+            <button disabled><i class="far fa-bookmark" data-id="<%=posts[i]._id%>" ></i></button>
+          <%} %> 
+          
+          <button class="share_button"><i class="far fa-paper-plane"></i></button>
+  
+  
+          <div class="share">
+            <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="http://localhost:3000/<%=posts[i].id%>"
+              data-a2a-title="Checkout this Amazing <%=posts[i].category%> by <%=posts[i].author.name%> on Scribbled Diaries: ">
+              <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+              <a class="a2a_button_facebook"></a>
+              <a class="a2a_button_whatsapp"></a>
+              <a class="a2a_button_twitter"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <%} %>

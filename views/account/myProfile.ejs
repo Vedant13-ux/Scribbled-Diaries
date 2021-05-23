@@ -1,0 +1,485 @@
+<%-include('../partials/header') %>
+<link rel="stylesheet" href="/nav/nav.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/button.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/loader.min.css">
+<link rel="stylesheet" href="/account/myProfile.css">
+
+
+<%-include('../partials/sidebar')%>
+<%-include('../partials/nav') %>
+<%if(currentUser){ %>
+    <input type="hidden" class="currentUser" data-current-id="<%=currentUser._id%>" >
+<%}else{%>
+    <input type="hidden" class="currentUser" data-current-id="null" hidden >
+<%} %>  
+<input type="hidden" class="userObj" data-user="<%user%>">
+<div class="socialMedia">
+  <div  class="handle-label" data-toggle="modal" data-target="#facebook">
+    <span class="social_name" >Facebook</span>
+    <i class="fa fa-facebook"></i>
+  </div>
+  <div  class="handle-label" data-toggle="modal" data-target="#twitter">
+    <span class="social_name">Twitter</span>
+    <i class="fa fa-twitter"></i>
+  </div>
+
+  <div  class="handle-label" data-toggle="modal" data-target="#instagram">
+    <span class="social_name">Instagram</span>
+    <i class="fa fa-instagram"></i>
+  </div>
+
+  
+  <div  class="handle-label" data-toggle="modal" data-target="#linkedin">
+    <span class="social_name">Linkedin</span>
+    <i class="fa fa-linkedin"></i>
+  </div>
+
+  <div  class="handle-label" data-toggle="modal" data-target="#personalBlog">
+    <span class="social_name">Personal Blog</span>
+    <i class=" fa fas fa-pen-square"></i>
+  </div>
+</div>
+
+<div id="header">
+  <img id="background"
+    src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+    alt="">
+
+  <div id="main">
+    <div id="user_info">
+
+      <img id="user_pic" src="<%=user.photo%>" src="" alt="">
+      <%if(currentUser){ %>
+          <%if(currentUser._id.equals(user._id)){ %> 
+            <div id="upload" data-toggle="modal" data-target="#exampleModalCenter">Update Image</div>
+          <%} %> 
+      <%} %> 
+      
+      <h3 data-id="<%=user._id%>" class="user_name"><%=user.name%></h3>
+      <%if(currentUser && !(currentUser._id.equals(user._id))){ %> 
+        <%if(currentUser.followings.findIndex((following)=>following.equals(user._id))==-1){%>
+          <button class="btn btn-info btn-block p-1" id="follow_btn"  data-id="<%=user._id%>">Follow</button>
+        <%}else{%>
+          <button class="btn btn-info btn-block p-1" id="follow_btn" data-id="<%=user._id%>">Unfollow</button>
+        <%}%> 
+      <%}%>
+      <%if(!currentUser){%>
+        <button class="btn btn-info btn-block p-1" id="follow_btn" disabled>Follow</button>
+      <%}%>   
+    </div>
+    <div id="follow">
+      <div class="ui buttons">
+        <button class="ui white button large" onclick="window.location.href='#myposts';">
+          <span class="count_follower"><%=user.followers.length%></span><br>Followers
+        </button>
+        <button class="ui white button large" onclick="window.location.href='#section2';">
+          <span class="count_posts"><%=user.posts.length%></span><br>Posts
+        </button>
+        <button class="ui white button large quoteSec" onclick="window.location.href='#section3';">
+          <span class="count_followings"><%=user.followings.length%></span><br>Following
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  
+
+  <div id="cnt">
+
+    <%if(currentUser){ %> 
+      <%if(currentUser._id.equals(user.id) && user.posts.length==0){ %> 
+        <h1 id="no_post">
+          You Have No Posts
+          <br>
+        <a href="/newPost">Create Post <i class="far fa-plus-square"></i> </a>
+        <div id="typewritter_svg">
+          <%-include('../partials/typewritter') %> 
+        </div>
+        
+      </h1>
+      <%}%>
+  
+      <%if(!currentUser._id.equals(user.id) && user.posts.length==0){ %>  
+        <h1 id="no_post">
+          <%=user.name%> Has No Posts
+        </h1>
+        <div id="typewritter_svg">
+          <%-include('../partials/typewritter') %> 
+        </div>
+      <%} %> 
+    <%}else if(user.posts.lenght==0){ %>
+      <h1 id="no_post">
+        <%=user.name%> Has No Posts
+      </h1>
+      <div id="typewritter_svg">
+        <%-include('../partials/typewritter') %> 
+      </div>
+    <%} %> 
+
+    
+    <div class="card-columns">
+
+    <div id="bio" class="card template" >
+        <small  data-toggle="modal" data-target="#editBio">Edit</small>
+        <h2>About <%=user.name%></h2>
+        <p id="bio_content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, praesentium, modi aperiam corrupti inventore nihil atque rem quis molestias numquam explicabo eius reprehenderit eaque maxime nobis ipsum vel alias ab quibusdam exercitationem quos sunt voluptate aspernatur. Possimus omnis hic a. Fugit ex minima quo omnis, dolorem veniam, corrupti rem voluptatibus impedit ea minus aspernatur repudiandae fuga laboriosam velit. Nihil vero, ex, saepe facilis odit sed iusto officiis illo voluptatem deleniti numquam inventore similique molestias sit pariatur distinctio odio incidunt quisquam ab ducimus illum facere voluptatum doloremque veritatis. Ad ducimus facilis vel error quidem? Sunt pariatur velit exercitationem eveniet dolor accusamus commodi asperiores impedit sequi? Tenetur est voluptatem, vero tempora officia quae hic ab porro repudiandae ipsam esse? Possimus, illum fugiat.</p>
+    </div>
+  
+    <%for(var i=0;i<user.posts.length; i++){ %>
+      <div class="card">
+        <div class="template">
+          <div class="category"><%=user.posts[i].category%></div>
+          <div class="top">
+            <img src="<%=user.posts[i].author.photo%>" alt="" class="avatar">
+
+            <a class="name" href=<%=user.posts[i].author.link%>><%=user.posts[i].author.name%></a>
+          </div>
+          <img src="<%=user.posts[i].image%>" class="top_image">
+          <div class="container">
+            <h4 class="title"><b><%=user.posts[i].title%></b></h4>
+            <p class="content"><%-user.posts[i].content.substring(0,200)%>....<a class="post_link" href="/post/<%=user.posts[i].id%>"> Read More</a>
+            </p>
+          </div>
+          <div class="bottom">
+    
+            <!-- Liked -->
+            <%if(currentUser){ %>
+              <%if(user.posts[i].liked_by.findIndex((user)=>{return currentUser._id.equals(user)})==-1){ %>
+                <button>
+                  <i class="far fa-heart likes" data-id="<%=user.posts[i]._id%>">
+                    <small class=".like_count"><%=user.posts[i].liked_by.length%></small>
+                  </i>
+                </button>
+              <%}else{ %>
+                <button>
+                  <i class="fas far fa-heart likes" data-id="<%=user.posts[i]._id%>">
+                    <small class=".like_count"><%=user.posts[i].liked_by.length%></small>
+                  </i>
+                </button>
+              <%} %> 
+            <%}%>
+            <%if(!currentUser){%>
+              <button disabled>
+                <i class="far fa-heart">
+                  <small class=".like_count"><%=user.posts[i].liked_by.length%></small>
+                </i>
+              </button>
+            <%} %>
+            
+            <%if(currentUser){ %> 
+              <button><i class="far fa-comment"></i></button>
+            <%}else{ %>
+              <button disabled><i class="far fa-comment"></i></button>
+            <%} %>  
+            
+    
+            <%if(currentUser){ %>
+              <%if(currentUser.bookmarks.findIndex((bookmark)=>{return bookmark.equals(user.posts[i]._id)})==-1){ %>
+                <button><i class="far fa-bookmark bookmark" data-id="<%=user.posts[i]._id%>"></i></button>
+              <%}else{ %>
+                <button><i class="fas far fa-bookmark bookmark" data-id="<%=user.posts[i]._id%>"></i></button>
+              <%} %> 
+            <%}%>
+            <%if(!currentUser){%>
+              <button disabled><i class="far fa-bookmark" data-id="<%=user.posts[i]._id%>" ></i></button>
+            <%} %> 
+            
+            <button class="share_button"><i class="far fa-paper-plane"></i></button>
+
+            <%if (currentUser){%>
+              <%if(currentUser._id.equals(user.posts[i].author.id)){%> 
+              
+                <div class="ui left pointing dropdown icon button" style="float: right; padding-right: 5px;background: none;">
+                  <i class="fas fa-ellipsis-v" ></i>
+                  <div class="menu">
+                    <div class="item">
+                      <div class="ui blue empty circular label"></div>
+                      Edit
+                    </div>
+                    <div class="item">
+                      <div class="ui red empty circular label"></div>
+                      Delete
+                    </div>
+                    <div class="item">
+                      <div class="ui black empty circular label"></div>
+                      Hide
+                    </div>
+                  </div>
+                </div>
+              <%} %> 
+            <%} %> 
+    
+    
+            <div class="share">
+              <div class="a2a_kit a2a_kit_size_32 a2a_default_style" data-a2a-url="http://localhost:3000/<%=user.posts[i].id%>"
+                data-a2a-title="Checkout this Amazing <%=user.posts[i].category%> by <%=user.posts[i].author.name%> on Scribbled Diaries: ">
+                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                <a class="a2a_button_facebook"></a>
+                <a class="a2a_button_whatsapp"></a>
+                <a class="a2a_button_twitter"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <%} %>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="container">
+  <!-- Image Upload -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Upload Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="imgUpload" action="/updateImage" method="POST" enctype="multipart/form-data" >
+            <div class="input-group">
+              <div class="custom-file">
+                  <input type="file" id="file" name="file" onchange="Filevalidation()" class="custom-file-input" name="image" style="outline:none !important;border:none !important" accept=".gif,.jpg,.png | image/*" required >
+                  <label class="custom-file-label" style="text-align: left;" for="loacl">Choose Image to Upload</label>
+              </div>
+            </div>
+          
+        </div>
+        <div class="modal-footer">
+          <span class="notify" id="update_img"></span>
+          <input type="submit" class="btn btn-primary">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Facebook -->
+  <div class="modal fade" id="facebook" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Add Your Facebook Handle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="facebook_form" method="POST">
+          <div class="ui left icon input">
+            <input id="facebook" class="facebook_input" type="text" placeholder="Add URL of your Profile">
+            <i class="facebook icon"></i>
+          </div>
+        <div class="modal-footer">
+          <span id="update_fb" class="notify"></span>
+          <button id="facebook_btn" class="btn btn-primary">Save Changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+   <!--Twitter -->
+   <div class="modal fade" id="twitter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Add Your Twitter Handle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="POST" id="twitter_form">
+            <div class="ui left icon input">
+              <input id="twitter" type="text" placeholder="Add URL of your Profile" class="twitter_input">
+              <i class="twitter icon"></i>
+            </div>
+        <div class="modal-footer">
+          <span id="update_tw" class="notify"></span>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="twitter_btn">Save changes</button>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+   <!--Instagram -->
+   <div class="modal fade" id="instagram" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <%if(currentUser){ %>
+         <%if(currentUser._id.equals(user._id)){ %> 
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add Your instagram Handle</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        
+          <div class="modal-body">
+            <form action="POST" id="instagram_form">
+              <div class="ui left icon input">
+                <input id="instagram" type="text" placeholder="Add URL of your Profile" class="instagram_input">
+                <i class="instagram icon"></i>
+              </div>
+          <div class="modal-footer">
+            <span id="update_insta" class="notify"></span>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="instagram_btn">Save changes</button>
+            
+            </form>
+          </div>
+        <%}else{ %>
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle"><%=user.name%>'s Instagram Handle</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        
+          <div class="modal-body">
+            <div class="ui left icon input">
+              <input type="text" class="otherSocial" value="<%=user.social_handles.instagram%>" disabled >
+              <i class="instagram icon"></i>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        <%} %> 
+        <%} %> 
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!-- Linkedin -->
+  <div class="modal fade" id="linkedin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Add Your linkedin Handle</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="POST" id="linkedin_form">
+            <div class="ui left icon input">
+              <input id="linkedin" type="text" placeholder="Add URL of your Profile" class="linkedin_input">
+              <i class="linkedin icon"></i>
+            </div>
+        <div class="modal-footer">
+          <span id="update_linkedin" class="notify"></span>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="linkedin_btn">Save changes</button>
+          
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Personal Blog -->
+  <div class="modal fade" id="personalBlog" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Add Your Blog Website</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="POST" id="blog_form">
+            <div class="ui left icon input">
+              <input id="blog" type="text" placeholder="Add URL of your Blog Website" class="personalBlog_input">
+              <i class="quote left icon"></i>
+            </div>
+        <div class="modal-footer">
+          <span id="update_blog" class="notify"></span>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="blog_btn" type="button" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Edit Bio -->
+  <div class="modal fade" id="editBio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">About You</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST"></form>
+            <textarea name="bio" id="insertBio" cols="30" rows="10" required placeholder="Minimum 75 words" minlength="500"></textarea>
+        </div>
+        <div class="modal-footer">
+          <span class="notify" id="alert_bio"></span>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="bio_submit">Save changes</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ui active inverted dimmer" id="loader" >
+  <div class="ui large text loader">Loading</div>
+</div>
+
+
+
+
+<%-include('../partials/footer') %>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script async src="https://static.addtoany.com/menu/page.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState !== 'complete') {
+      document.querySelector('body').style.visibility = 'hidden';
+      document.querySelector('#loader').style.visibility = 'visible';
+    } else {
+      document.querySelector('#loader').style.visibility = 'hidden';
+      document.querySelector('body').style.visibility = 'visible';
+    }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/site.min.js"></script>
+<script src="/account/myProfile.js"></script>
+<script src="/posts/actions.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script> 
+
+</body>
+
+</html>

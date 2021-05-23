@@ -1,0 +1,35 @@
+body {
+	overflow-x: hidden;
+}
+
+.bg img {
+	width: 100vw;
+	height: 80vw;
+	z-index: -1;
+	margin: 0;
+	padding: 0;
+	top: 0;
+	justify-self: center;
+	position: absolute;
+}
+.bg img {
+	background-attachment: fixed;
+}
+
+#content {
+	position: absolute;
+	left: 50%;
+	text-align: center;
+	transform: translateX(-50%);
+	padding: 300px 0;
+	display: flex;
+	justify-items: center;
+	align-items: center;
+	flex-direction: column;
+}
+#content h1 {
+	font-family: Snell Roundhand, cursive;
+}
+#content p {
+	font-family: URW Chancery L, cursive;
+}

@@ -1,0 +1,194 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/label.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/input.min.css">
+
+
+
+
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div id="mySidebar" class="sidebar">
+        <div id="scrollableSide">
+            <div class="sidebar-brand">
+                <a href="/">Scribbled Diaries</a>
+            </div>
+        
+            <%if(currentUser){ %> 
+                <!-- Profile-->
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <img class="img-responsive img-rounded" src="<%=currentUser.photo%>" alt="User picture">
+                    </div>
+                    <div class="user-info">
+                    <span class="user-name"><%=currentUser.name%></span>
+                    <span class="user-role">Writer</span>
+                    <span class="user-status">
+                        <i class="fa fa-circle"></i>
+                        <span>Online</span>
+                    </span>
+                    </div>
+                </div>
+                <!-- <hr> -->
+                <%} %>
+                <!-- Search -->
+                <div class="sidebar-search">
+                    <div class="ui right labeled input">
+                        <input type="text" placeholder="Find Posts">
+                        <div class="ui dropdown label">
+                        <div class="text">Category</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item">.com</div>
+                            <div class="item">.net</div>
+                            <div class="item">.org</div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <hr> -->
+
+                <!-- Sidebar Menu -->
+                <div class="sidebar-menu">
+                    <a href="/home" class="mains">
+                        <i class="fas fa-home ic"></i>
+                        Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+
+                    <div class="option" onclick="Sidedrop(this)">
+                        <a class="mains" >
+                            <i class="fas fa-pen-nib ic">
+                                <span class="badge badge-primary">5</span>
+                            </i>
+                            Create Post
+                            <i class="carret fas fa-angle-right"></i>
+                        </a>
+                        <div class="sidebar-dropdown">
+                            <a href="/newPost?category=poem">Poem</a>
+                            <hr>
+                            <a href="/newPost?category=quote">Quote</a>
+                            <hr>
+                            <a href="/newPost?category=shortStory">Short Story</a>
+                            <hr>
+                            <a href="/newPost?somethingElse">Something Else..</a>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <div class="option" onclick="Sidedrop(this)">
+                        <a class="mains" >
+                            <i class="fas fa-book-reader ic"><span class="badge badge-info">3</span></i>
+                            Reader's Corner
+                            <i class="carret fas fa-angle-right">
+                                
+                            </i>
+                        </a>
+                        <div class="sidebar-dropdown">
+                            <a href="/readerSection/#section1">Our Picks</a>
+                            <hr>
+                            <a href="/readerSection/#section2">Poems</a>
+                            <hr>
+                            <a href="/readerSection/#section3">Quotes</a>
+                            <hr>
+                            <a href="/readerSection/#section4">Short Stories</a>
+                            <hr>
+                        </div>
+                    </div>
+
+
+                    <a href="/chat" class="mains">
+                        <i class="fas fa-sticky-note ic">
+                            <span class="badge badge-success">11</span>
+                        </i>
+                        Chat Room
+                    </a>
+
+                    <a href="/bookmarks" class="mains">
+                        <i class="fas fa-bookmark ic">
+                            <span class="badge badge-info">4</span>
+                        </i>
+                        Bookmarks
+                    </a>
+
+                    <a class="mains" href='/bookreviews'>
+                        <i class="fas fa-book ic"></i>
+                        Book Reviews
+                    </a>
+                    
+                    <a class="mains" href='/bookReviews'>
+                        <i class="fas fa-smile ic"></i>
+                    
+                        Donate
+                    </a>
+                    <a class="mains" href='/aboutUs'>
+                        <i class="fas fa-user-tie ic"></i>
+                    
+                        About Us
+                    </a>
+
+                    <a class="mains" href='/bookReviews'>
+                        <i class="far fas fa-address-book ic"></i>
+                        Contact Us
+                    </a>
+
+                   
+                    
+                    
+                </div>
+                <%if(currentUser){ %> 
+                <div class="drop-content">
+                    <div class="heading">
+                        <h3>New Notifications (<b><%=notifications.length%><b>)</h3>
+                        <span>Clear All</span>
+                    </div>
+                    <%notifications.forEach(notification=>{ %> 
+                      <li>
+                        <img class="avtar" src="<%=notification.author.photo%>" onclick="window.location.href='/user/<%=notification.author.id%>'">
+
+                        <a href="<%=notification.link%>" style="word-wrap: break-word;">
+                          <%=notification.text%> 
+                        </a>
+                      </li>
+                      <hr>
+                    <%}) %> 
+                </div>
+                <%} %> 
+        </div>
+
+            <div class="sidebar-footer">
+                <a href="#" id="sideMenu" style="cursor: pointer;">
+                  <i class="fas fa-home"></i>
+                </a>
+                <a>
+                    <i class="fa fa-bell" id="sideNotif" style="cursor: pointer;"></i>
+                    <span class="badge badge-pill badge-warning notification">3</span>
+                  </a>
+                <a href="#">
+                  <i class="fa fa-cog"></i>
+                  <span class="badge-sonar"></span>
+                </a>
+                <a href="/logout">
+                  <i class="fa fa-power-off"></i>
+                </a>
+        </div>
+
+        
+            
+         
+    </div>
+        <button class="openbtn" style="margin:30px 12px">
+            <div class="container" onclick="openNav(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+        </button>
+    <div>
+       
+    </div>
+
+
+        

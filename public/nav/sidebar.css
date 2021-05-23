@@ -1,0 +1,444 @@
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script:700);
+@import url(https://fonts.googleapis.com/css?family=Questrial);
+
+.openbtn:focus {
+	border: none;
+	outline: none;
+}
+* {
+	font-weight: normal;
+}
+
+/* Button For Sidebar */
+
+.openbtn .container {
+	display: inline-block;
+	cursor: pointer;
+	right: 0 !important;
+	padding: 10px 12px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.bar1,
+.bar2,
+.bar3 {
+	width: 15px;
+	height: 2px;
+	background-color: white;
+	margin: 2px 0;
+	transition: 0.4s;
+}
+
+.change .bar1 {
+	/* -webkit-transform: rotate(-45deg) translate(-5px, 2px); */
+	transform: rotate(-45deg) translate(-3px, 1px);
+}
+
+.change .bar2 {
+	opacity: 0;
+}
+
+.change .bar3 {
+	/* -webkit-transform: rotate(45deg) translate(-8px, -8px); */
+	transform: rotate(45deg) translate(-4.5px, -3.25px);
+}
+.sidebar {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.692);
+	overflow: hidden;
+	transition: 0.5s cubic-bezier(0.4, 0.6, 0.5, 0.8);
+	white-space: nowrap !important;
+	overflow-x: hidden;
+	z-index: 3;
+}
+
+.openbtn {
+	width: 50px;
+	font-size: 10px;
+	cursor: pointer;
+	background-color: black;
+	color: white;
+	border: none;
+	text-align: center !important;
+	position: fixed;
+	right: 0;
+	z-index: 3;
+	border-radius: 20px;
+	/* display: inline; */
+}
+
+.sidebar {
+	color: white;
+}
+
+
+/* Sidebar Brand */
+.sidebar .sidebar-brand {
+	padding: 32px 20px 15px 20px;
+	background: #3a3f48;
+	box-shadow: 0px -1px 5px #282c33;
+	border-bottom: 1px solid #464a52;
+	white-space: nowrap;
+}
+.sidebar .sidebar-brand  a {
+	padding-top: 4.5px;
+	white-space: nowrap;
+	font-family: 'Dancing Script', cursive;
+	font-size: 30px;
+}
+
+/* Profile */
+.sidebar .sidebar-header {
+	padding: 15px;
+	overflow: hidden;
+	box-shadow: 0px -1px 5px #282c33;
+	border-top: 1px solid #464a52;
+	/* border-bottom: 1px solid #464a52; */
+}
+
+.sidebar .sidebar-header .user-pic {
+	float: left;
+	width: 60px;
+	padding: 2px;
+	border-radius: 12px;
+	margin-right: 15px;
+	overflow: hidden;
+}
+
+.sidebar .sidebar-header .user-pic img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+.sidebar .sidebar-header .user-info > span {
+	display: block;
+}
+
+.sidebar .sidebar-header .user-info .user-role {
+	font-size: 12px;
+}
+
+.sidebar .sidebar-header .user-info .user-status {
+	font-size: 11px;
+	margin-top: 4px;
+}
+
+.sidebar .sidebar-header .user-info .user-status i {
+	font-size: 8px;
+	margin-right: 4px;
+	color: #5cb85c;
+}
+
+/* Search */
+.sidebar .sidebar-search {
+	padding: 20px 10px;
+	width: 100%;
+	box-shadow: 0px -1px 5px #282c33;
+	border-top: 1px solid #464a52;
+	border-bottom: 1px solid #464a52;
+}
+.sidebar .sidebar-search input {
+	max-width: 150px;
+}
+
+/* Sidebar Menu */
+.sidebar .sidebar-menu {
+	overflow-y: auto;
+	overflow-x: hidden !important;
+	z-index: -10;
+	font-family: 'Questrial', 'Helvetica Neue', Arial, sans-serif;
+	padding: 0px 0px;
+}
+
+.sidebar .sidebar-menu .mains {
+	font-size: 24px;
+	display: block;
+	padding: 12px 20px;
+	cursor: pointer;
+	color: white;
+}
+.sidebar .sidebar-menu .mains:hover{
+	color: white;
+}
+.sidebar .sidebar-menu a > .fas {
+	margin-right: 10px;
+	position: relative;
+	width: 36px;
+	font-size: 24px;
+	top: 3px;
+	line-height: 12px;
+}
+
+.sidebar .sidebar-menu a > .fas > .badge {
+	font-size: 0.75rem;
+	position: absolute;
+	right: 0;
+	font-family: sans-serif;
+	top: -10px;
+}
+.sidebar .sidebar-menu .mains:hover .ic {
+	animation: swing 0.3s linear;
+}
+
+@keyframes swing {
+	0% {
+		transform: rotate(0deg);
+	}
+	10% {
+		transform: rotate(10deg);
+	}
+	30% {
+		transform: rotate(0deg);
+	}
+	40% {
+		transform: rotate(-10deg);
+	}
+	50% {
+		transform: rotate(0deg);
+	}
+	60% {
+		transform: rotate(5deg);
+	}
+	70% {
+		transform: rotate(0deg);
+	}
+	80% {
+		transform: rotate(-5deg);
+	}
+	100% {
+		transform: rotate(0deg);
+	}
+}
+
+.sidebar .sidebar-menu .mains .carret {
+	margin-left: 10px;
+	transition: 0.4s !important;
+}
+
+.drop .carret {
+	animation: rotate 0.5s forwards;
+	transform-box: fill-box;
+	transform-origin: center center;
+	transform: rotate(90deg) translate(10px, 5px);
+}
+.sidebar .sidebar-menu .sidebar-dropdown a {
+	opacity: 0;
+	padding: 2px;
+	font-size: 18px;
+	transition: 0.3s;
+}
+.sidebar .sidebar-menu .sidebar-dropdown {
+	background: rgba(0, 0, 0, 0.836);
+	box-shadow: 0px -1px 5px #282c33;
+	border-top: 1px solid #464a52;
+	border-bottom: 1px solid #464a52;
+	height: 0px;
+	padding: 0px 70px;
+	margin: 0;
+	display: none;
+	white-space: nowrap;
+}
+
+@keyframes open {
+	from {
+		height: 120px;
+		padding: 10px 70px;
+	}
+	to {
+		height: 0px;
+		padding: 0px 70px;
+	}
+}
+@keyframes open {
+	from {
+		height: 0px;
+		padding: 0px 70px;
+	}
+	to {
+		height: 120px;
+		padding: 10px 70px;
+	}
+}
+.sidebar .sidebar-menu .drop .sidebar-dropdown {
+	z-index: 1;
+	display: block;
+	height: 120px;
+	animation: open 0.5s forwards;
+}
+.sidebar .sidebar-menu .drop .sidebar-dropdown a {
+	animation: appear 1.8s forwards;
+	display: block;
+}
+@keyframes appear {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+.sidebar .sidebar-menu .sidebar-dropdown hr {
+	background: white;
+	/* color: white; */
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+}
+
+/* Sidebar Footer */
+
+.sidebar .sidebar-footer {
+	z-index: 100;
+	overflow: hidden !important;
+	position: fixed;
+	width: 300px;
+	background-color: black;
+	padding: 10px 0;
+	bottom: 0;
+	display: flex;
+	overflow: hidden !important;
+	background: #3a3f48;
+	border-top: 1px solid #464a52;
+}
+
+.sidebar-footer > a {
+	flex-grow: 1;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	position: relative;
+}
+
+.sidebar-footer > a .notification {
+	position: absolute;
+	top: 0;
+}
+
+.badge-sonar {
+	display: inline-block;
+	background: #980303;
+	border-radius: 50%;
+	height: 8px;
+	width: 8px;
+	position: absolute;
+	top: 0;
+}
+
+.badge-sonar:after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 2px solid #980303;
+	opacity: 0;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	animation: sonar 1.5s infinite;
+}
+#scrollableSide {
+	max-height: calc(100% -60px);
+	height: calc(100% - 60px);
+	overflow-y: auto;
+	position: relative;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+/* Scrollbar  */
+#scrollableSide::-webkit-scrollbar {
+	width: 5px;
+	height: 7px;
+}
+#scrollableSide::-webkit-scrollbar-button {
+	width: 0px;
+	height: 0px;
+}
+#scrollableSide::-webkit-scrollbar-thumb {
+	background: #525965;
+	border: 0px none #ffffff;
+	border-radius: 0px;
+}
+#scrollableSide::-webkit-scrollbar-thumb:hover {
+	background: #525965;
+}
+#scrollableSide::-webkit-scrollbar-thumb:active {
+	background: #525965;
+}
+#scrollableSide::-webkit-scrollbar-track {
+	background: transparent;
+	border: 0px none #ffffff;
+	border-radius: 50px;
+}
+#scrollableSide::-webkit-scrollbar-track:hover {
+	background: transparent;
+}
+#scrollableSide::-webkit-scrollbar-track:active {
+	background: transparent;
+}
+#scrollableSide::-webkit-scrollbar-corner {
+	background: transparent;
+}
+/* Notifications */
+.sidebar .drop-content {
+	font-family: 'Questrial', 'Helvetica Neue', Arial, sans-serif;
+	overflow-x: hidden;
+	overflow-y: auto;
+	display: none;
+	position: fixed;
+	white-space: nowrap;
+	width: 300px;
+}
+.sidebar .drop-content li {
+	display: block;
+	white-space: nowrap;
+	padding-right: 5px;
+	display: flex;
+	align-items: center;
+	justify-items: start;
+	margin: 10px;
+}
+
+.sidebar .drop-content li img {
+	margin-right: 10px;
+	height: 34px;
+	width: 34px;
+	border-radius: 2px;
+	bottom: 0;
+	cursor: pointer;
+}
+.sidebar .drop-content hr {
+	box-shadow: 0px -1px 5px #282c33;
+	background: #5e6269;
+}
+.sidebar .drop-content li a {
+	white-space: normal;
+	word-wrap: none;
+}
+.sidebar .drop-content .heading {
+	padding: 10px;
+}
+.sidebar .drop-content .heading h3 {
+	display: inline;
+}
+
+.sidebar .drop-content .heading span {
+	float: right;
+	line-height: 30px;
+	cursor: pointer;
+}
+.sidebar a {
+	color: white;
+	text-decoration: none;
+	display: block;
+}
+.sidebar a:hover {
+	color: white !important;
+	/* text-decoration: none; */
+}

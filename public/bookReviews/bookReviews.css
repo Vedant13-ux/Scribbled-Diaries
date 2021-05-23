@@ -1,0 +1,207 @@
+@import 'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap';
+
+nav {
+	z-index: 1;
+	/* position: fixed !important; */
+	position: absolute !important;
+	width: 100%;
+}
+
+.nav-link {
+	color: #ffffffe5 !important;
+}
+
+.nav-link:hover {
+	color: white;
+}
+
+#nav_form {
+	display: none !important;
+}
+
+body {
+	background: #f1eff8;
+	overflow-y: scroll;
+}
+
+form {
+	display: inline;
+}
+
+form input {
+	width: 300px;
+}
+
+#header {
+	overflow-x: hidden;
+	width: 100% !important;
+	max-height: 400px;
+	display: flex;
+	align-items: center;
+	justify-items: center;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+#header img {
+	width: 100vw;
+	height: 400px;
+	object-fit: cover;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#header h1 {
+	position: absolute;
+	color: white;
+	padding: 150px;
+	font-size: 80px;
+	font-family: 'Dancing Script', cursive;
+	transform: translateY(13px);
+	opacity: 0;
+	animation: appear 1s forwards;
+}
+
+@keyframes appear {
+	form {
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+#header #form {
+	position: absolute;
+	padding-top: 300px;
+}
+
+#page_form {
+	width: 500px;
+}
+
+
+
+/* Review Section */
+.fluid-container{
+	padding: 30px 40px;
+}
+/* Review Teplate */
+.template {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: 0.3s;
+	border-radius: 25px;
+	margin-top: 10px;
+	transition: all 1s;
+	background-color: white;
+	width: 100%;
+	margin-bottom: 10px;
+	padding: 7px 9px;
+}
+
+.template .top {
+	display: flex;
+	justify-items: start;
+	align-items: center;
+}
+
+.template .category {
+	float: right;
+	line-height: 55px;
+	padding-right: 20px;
+}
+
+.template .top .name {
+	display: table-cell;
+	vertical-align: middle;
+	font-size: 15px;
+	padding: 0;
+}
+
+.template .top .avatar {
+	display: table-cell;
+	vertical-align: middle;
+	height: 40px;
+	width: 40px;
+	border-radius: 30px;
+	float: left;
+	bottom: 0;
+	margin: 10px;
+}
+
+.template .topSerprn{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+
+/* Book iamge  */
+.template .bookInfo{
+	display: flex;
+}
+.template .bookInfo img {
+
+	min-height: 120px;
+	max-height: 120px;
+	width: 100px !important;
+	margin: 0;
+	padding: 3px;
+	border-radius: 10px;
+	border:1px solid rgba(0, 0, 0, 0.521);
+}
+.template .bookInfo .details{
+	padding:0px 10px;
+	display: inline-block;
+}
+.template .bookInfo .details .title{
+	padding: 2px 0;
+}
+.template:hover {
+	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.content p {
+	word-wrap: break-word;
+	white-space: normal;
+	line-height: 10px;
+	width: 100%;
+}
+
+.template .review {
+	display: block;
+	background-color: white;
+	padding: 2px 0px;
+	word-wrap: break-word;
+	margin-bottom: 15px;
+}
+.template .review .title {
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	padding: 7px 0 !important;
+	font-size: 19px;
+}
+.template .review .content {
+	margin: 0;
+}
+
+.bottom {
+	bottom: 5px;
+	position: absolute;
+	font-size: 25px;
+	margin: 0px;
+	padding: 10px 0;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+
+.bottom button {
+	border: 0;
+	outline: 0;
+	margin: 0;
+	box-shadow: none;
+	background: none;
+}
+
